@@ -1,0 +1,105 @@
+<h1>{{titulo}}</h1>
+
+<div class="row">
+  <div class="col-sm-12">
+   <span><a [routerLink]="['/listaPokemon']">Ver lista de  Pokemons</a></span>
+  </div>
+  <div class="col-sm-12 animated flipInX" *ngFor="let entrenador of entrenadores">
+
+
+    <div class="text-center">
+      <p>ID {{entrenador.id}}</p>
+      <h3>{{entrenador.nombres}}</h3>
+      <p>Fecha de Inicio : {{entrenador.fechaInicio | date}}</p>
+      <p>Region: {{entrenador.Region}}</p>
+    </div>
+
+    <div class="row animated flipInY" [hidden]="!entrenador.formularioCerrado">
+
+      <div class="col-sm-5">
+        <button class="btn btn-block btn-info"
+                (click)="entrenador.formularioCerrado = !entrenador.formularioCerrado"
+        >Actualizar</button>
+      </div>
+
+      <div class="col-sm-2"></div>
+
+      <div class="col-sm-5">
+
+        <button class="btn btn-block btn-danger" (click)="borrarEntrenador(entrenador.id)">Borrar</button>
+
+      </div>
+
+      <div class="col-sm-12">
+        <a [routerLink]="['/pokemon',entrenador.id]">Agregar Pokemon</a>
+      </div>
+
+
+    </div>
+
+    <div class="div" [hidden]="entrenador.formularioCerrado">
+
+      <form action="">
+        <form class="animated bounceIn" (ngSubmit)="actualizarEntrenador(entrenador)" #NuevoEntrenadorForm="ngForm">
+
+          <div class="form-group">
+            <label>Nombre del Entrenador</label>
+            <input required
+                   minlength="4"
+                   type="text"
+                   class="form-control"
+                   placeholder="Digite un nombre de nombre como: Luis"
+                   name="nombre"
+                   [(ngModel)]="entrenador.nombres"
+                   #nombre="ngModel"
+                   #nombreElm>
+          </div>
+          <div class="form-group">
+
+            <label><h3>Fecha inicio de Entrenador</h3></label>
+
+            <!--<div class="animated slideInUp" [hidden]="!pais.errors">-->
+
+            <!--<span style="font-size:40px" class="bg-primary" *ngIf="pais.errors && (pais.dirty || pais.touched)" >Ingrese un Pais minimo con 4 caracteres </span>-->
+
+            <!--</div>-->
+
+            <input
+
+              type="date"
+              class="form-control"
+
+              name="fecha"
+              [(ngModel)]="entrenador.fechaInicio"
+              #fecha="ngModel"
+            >
+
+          </div>
+          <div class="form-group">
+            <label for="power">Region</label>
+            <select class="form-control" id="power"
+                    required
+                    [(ngModel)]="entrenador.Region" name="power"
+                    #power="ngModel">
+              <option *ngFor="let pow of regiones" [value]="pow">{{pow}}</option>
+            </select>
+            <div [hidden]="power.valid || power.pristine" class="alert alert-danger">
+              Region es Requerida
+            </div>
+          </div>
+
+          <button [disabled]="disabledButtons.NuevoEntrenadorFormSubmitButton||!NuevoEntrenadorForm.valid" type="submit"
+                  class="btn btn-block btn-success">Update
+
+          </button>
+
+          <button type="button"
+                  class="btn btn-block btn-warning"
+                  (click)="entrenador.formularioCerrado = !entrenador.formularioCerrado">
+            Cancelar
+          </button>
+        </form>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+<h1>{{titulo}}</h1>
+
+<div class="row">
+
+  <div class="col-sm-12 animated flipInX" *ngFor="let pokemon of pokemons">
+
+    <div class="text-center">
+
+      <h3>{{pokemon.nombre}}</h3>
+      <p>Entrenador: {{pokemon.idEntrenador.nombres}}</p>
+      <p>tipo1: {{pokemon.tipo1}}</p>
+      <p>tipo2: {{pokemon.tipo2 }}</p>
+
+    </div>
+
+    <div class="row animated flipInY" [hidden]="!pokemon.formularioCerrado">
+
+      <div class="col-sm-5">
+        <button class="btn btn-block btn-info"
+                (click)="pokemon.formularioCerrado = !pokemon.formularioCerrado"
+        >Actualizar</button>
+      </div>
+
+      <div class="col-sm-2"></div>
+
+      <div class="col-sm-5">
+
+        <button class="btn btn-block btn-danger" (click)="borrarPokemon(pokemon.id)">Borrar</button>
+
+      </div>
+
+
+
+    </div>
+
+    <div class="div" [hidden]="pokemon.formularioCerrado">
+
+      <form action="">
+        <form class="animated bounceIn" (ngSubmit)="actualizarPokemon(pokemon)" #nuevoPokemonForm="ngForm">
+
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <select class="form-control" id="nombre"
+                    required
+                    [(ngModel)]="pokemon.nombre" name="nombre"
+                    #nombre="ngModel">
+              <option *ngFor="let pow of pokemonsLista" [value]="pow.nombre">{{pow.nombre}}  </option>
+
+
+            </select>
+
+          </div>
+          <div class="form-group">
+            <label for="tipo1">Tipo 1</label>
+            <select class="form-control" id="tipo1"
+                    required
+                    [(ngModel)]="pokemon.tipo1" name="tipo1"
+                    #tipo2="ngModel">
+              <option *ngFor="let tipo1 of tipos1" [value]="tipo1">{{tipo1}}</option>
+            </select>
+
+          </div>
+          <div class="form-group">
+            <label for="tipo2">Tipo 2</label>
+            <select class="form-control" id="tipo2"
+                    required
+                    [(ngModel)]="pokemon.tipo2" name="tipo2"
+                    #tipo2="ngModel">
+              <option *ngFor="let pow of tipos2" [value]="pow">{{pow}}</option>
+            </select>
+
+          </div>
+
+          <button [disabled]="disabledButtons.NuevoPokemonFormSubmitButton||!nuevoPokemonForm.valid" type="submit"
+                  class="btn btn-block btn-success">Update
+
+          </button>
+
+          <button type="button"
+                  class="btn btn-block btn-warning"
+                  (click)="album.formularioCerrado = !album.formularioCerrado">
+            Cancelar
+          </button>
+        </form>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+{{nuevoPokemon|json}}
+{{pokemonSeleccionado|json}}
+
+<div style='background-color:white;color:black;'>
+  <form class="animated bounceIn" (ngSubmit)="crearPokemon(nuevoPokemonForm)" #nuevoPokemonForm="ngForm" >
+
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <select class="form-control" id="nombre"
+              required
+              [(ngModel)]="nuevoPokemon.nombre" name="nombre"
+              #nombre="ngModel">
+        <option *ngFor="let pow of pokemons" [value]="pow.nombre">{{pow.nombre}}  </option>
+
+
+      </select>
+
+    </div>
+    <div class="form-group">
+      <label for="tipo1">Tipo 1</label>
+      <select class="form-control" id="tipo1"
+              required
+              [(ngModel)]="nuevoPokemon.tipo1" name="tipo1"
+              #tipo2="ngModel">
+        <option *ngFor="let tipo1 of tipos1" [value]="tipo1">{{tipo1}}</option>
+      </select>
+
+    </div>
+    <div class="form-group">
+      <label for="tipo2">Tipo 2</label>
+      <select class="form-control" id="tipo2"
+              required
+              [(ngModel)]="nuevoPokemon.tipo2" name="tipo2"
+              #tipo2="ngModel">
+        <option *ngFor="let pow of tipos2" [value]="pow">{{pow}}</option>
+      </select>
+
+    </div>
+
+
+
+
+    <br>
+
+    <button type="submit" class="btn btn-success">Crear Pokemon</button>
+    <button class="btn btn-link" [routerLink]="['/listaPokemon']" >Ver lista de Pokemons</button>
+
+  </form>
+
+</div>
+
+

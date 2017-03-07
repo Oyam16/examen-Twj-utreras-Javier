@@ -1,0 +1,67 @@
+<h1>{{titulo}}</h1>
+
+<div class="row">
+  <div class="col-md-12">
+    <form class="animated bounceIn" (ngSubmit)="crearEntrenador(NuevoEntrenadorForm)" #NuevoEntrenadorForm="ngForm">
+
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" class="form-control" id="nombre"
+               required
+               [(ngModel)]="nuevoEntrenador.nombres" name="nombre"
+               #nombre="ngModel">
+        <div [hidden]="nombre.valid || nombre.pristine"
+             class="alert alert-danger">
+          Nombre es requerido
+        </div>
+      </div>
+      <div class="form-group">
+
+        <label><h3>Fecha inicio de Entrenador</h3></label>
+
+        <!--<div class="animated slideInUp" [hidden]="!pais.errors">-->
+
+        <!--<span style="font-size:40px" class="bg-primary" *ngIf="pais.errors && (pais.dirty || pais.touched)" >Ingrese un Pais minimo con 4 caracteres </span>-->
+
+        <!--</div>-->
+
+        <input
+
+               type="date"
+               class="form-control"
+
+               name="fecha"
+               [(ngModel)]="nuevoEntrenador.fechaInicio"
+               #fecha="ngModel"
+               >
+
+      </div>
+      <div class="form-group">
+        <label for="power">Region</label>
+        <select class="form-control" id="power"
+                required
+                [(ngModel)]="nuevoEntrenador.Region" name="power"
+                #power="ngModel">
+          <option *ngFor="let pow of regiones" [value]="pow">{{pow}}</option>
+        </select>
+        <div [hidden]="power.valid || power.pristine" class="alert alert-danger">
+          Region es Requerida
+        </div>
+      </div>
+
+
+      <button [disabled]="disabledButtons.NuevoEntrenadorFormSubmitButton||!NuevoEntrenadorForm.valid" type="submit"
+
+              class="btn btn-block btn-success">Crear
+
+      </button>
+
+
+    </form>
+    <h3>Para ver todos los entrenadores registrados <span> <button [routerLink]="['/listaEntrenador']" class="btn btn-link">Click Aqui</button></span> </h3>
+
+  </div>
+</div>
+
+
+
